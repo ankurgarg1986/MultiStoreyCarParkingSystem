@@ -64,5 +64,48 @@ public class ParkingTests {
 		Parking p = pm.createParkingLot(10);
 		assertNotNull(p);
 	}
+	
+	
+	/**
+	 * Positive test case to test Parking a car with regNo and Color
+	 * @throws GoJekException
+	 */
+	@Test
+	public void testParkingCar() {
+		
+	}
+	
+	/**
+	 * Negative test case to Park a car which already has been parked
+	 * Basically , it makes ticket is not issued for car again
+	 */
+	@Test
+	public void testParkingCarDuplicate() {
+		
+	}
+	
+	/**
+	 * Negative test case to test Parking a Car with Color Not Passed
+	 */
+	@Test
+	public void testParkingCarEmptyColor() {
+		
+	}
+	
+	/**
+	 * Negative test case to test Parking a Car with RegNo Not Passed
+	 */
+	@Test
+	public void testParkingCarEmptyRegNo() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
