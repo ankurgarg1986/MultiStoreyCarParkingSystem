@@ -1,0 +1,18 @@
+package gojek.parking.utils;
+
+/**
+ * This class contains response Strings for all success
+ * and failure responses expected in the system.
+ * @author agarg
+ *
+ */
+public class ResponseMessages {
+	
+	public final static String pakingCreationSuccess = "Created a parking lot with ";
+	public final static String slot = " slots";
+	public final static String parkingCreationFailure = "Could not create Parking lot";
+	public final static String parkingLotFull = "Sorry, parking lot is full";
+	public final static String parkingAllocated = "Allocated slot number: ";
+	
+
+}

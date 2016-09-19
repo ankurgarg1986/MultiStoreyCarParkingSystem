@@ -2,6 +2,7 @@ package gojek.parking.contract;
 
 import gojek.entities.Parking;
 import gojek.entities.ParkingStatus;
+import gojek.entities.Slot;
 import gojek.entities.Vehicle;
 import gojek.parking.exceptions.GoJekException;
 
@@ -24,7 +25,14 @@ public interface ParkingManager {
 	
         public Parking createParkingLot(int n) throws GoJekException ;
         
-        public void ParkVehicle(Parking p, Vehicle v);
+        /**
+         * Method exposed to parkVehicle. This expects a valid Parking lot created.
+         * Vehicle with invalid or empty Reg no will throw exception.
+         * @param p
+         * @param v
+         * @throws GoJekException 
+         */
+        public Slot ParkVehicle(Parking p, Vehicle v) throws GoJekException;
         
         public ParkingStatus getStatusforParking(Parking p);
         

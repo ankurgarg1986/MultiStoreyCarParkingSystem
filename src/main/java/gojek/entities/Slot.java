@@ -13,15 +13,17 @@ package gojek.entities;
  */
 public class Slot {
 	
-	Vehicle vehicle;//details of Vehicle parked in the Slot.
-	boolean isEmpty;//define if a slot is empty or is a vehicle parked
+	private int id;//for maintaining the Slot Number . 
+	private Vehicle vehicle;//details of Vehicle parked in the Slot.
+	private boolean isEmpty;//define if a slot is empty or is a vehicle parked
 	
 	
 	/**
 	 * constructor to be called when initializing a parking lot
 	 * @param isEmpty
 	 */
-	public Slot(boolean isEmpty){
+	public Slot(int id){
+		this.id = id+1;
 		this.isEmpty = true;
 	}
 	
@@ -29,12 +31,21 @@ public class Slot {
 	 * Constructor to be called when parking a vehicle in this slot
 	 * @param v
 	 */
-	public Slot(Vehicle v){
+	public Slot(Vehicle v,int id){
 		this.vehicle = v;
 		this.isEmpty = false;
+		this.id = id+1;
 	}
 	
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Vehicle getVehicle() {
 		return vehicle;
 	}

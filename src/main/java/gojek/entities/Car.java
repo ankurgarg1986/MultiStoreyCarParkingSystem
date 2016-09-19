@@ -1,5 +1,7 @@
 package gojek.entities;
 
+import gojek.enums.VehicleType;
+
 /**
  * Java POJO to describe a Car .
  * For the problem statement the details mention in the abstract Class Vehicle are enough
@@ -13,7 +15,7 @@ public class Car extends Vehicle {
 	
 	public Car(String regNumber, String color) {
 		super(regNumber, color);
-		
+		this.vType = VehicleType.Car;
 	}
 	
 	
