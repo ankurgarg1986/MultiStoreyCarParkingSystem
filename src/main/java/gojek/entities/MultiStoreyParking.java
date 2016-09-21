@@ -10,7 +10,7 @@ import gojek.enums.ParkingLotType;
  * @author agarg
  *
  */
-public class SingleDimensionalParkingLot extends Parking {
+public class MultiStoreyParking extends Parking {
 	
 	private Slot[] slots;//describes an array of Parking slots.
 	private int capacity;
@@ -20,7 +20,7 @@ public class SingleDimensionalParkingLot extends Parking {
 	 * Invoked for call create_parking_lot n
 	 * @param n
 	 */
-	public SingleDimensionalParkingLot(int n){
+	public MultiStoreyParking(int n){
 		super(ParkingLotType.SingleFloor);
 		this.slots = new Slot[n];
 		for(int i=0;i<n;i++){

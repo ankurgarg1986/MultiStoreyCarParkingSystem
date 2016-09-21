@@ -1,7 +1,7 @@
 package gojek.parking.builder;
 
 import gojek.entities.Parking;
-import gojek.entities.SingleDimensionalParkingLot;
+import gojek.entities.MultiStoreyParking;
 
 /**
  * Builder class to build a Parking Space
@@ -15,7 +15,7 @@ public class ParkingBuilder {
 		if(n <=0){
 			return p;
 		}
-		p = new SingleDimensionalParkingLot(n);
+		p = new MultiStoreyParking(n);
 		return p;
 	}
 

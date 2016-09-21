@@ -29,6 +29,8 @@ public abstract class Parking {
 		this.pType = pType;
 	}
 	
-	
-	
+	public abstract Slot[] getSlots() ;
+
+	public abstract void setSlots(Slot[] slots) ;
+
 }

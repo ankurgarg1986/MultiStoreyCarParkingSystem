@@ -22,4 +22,10 @@ public class FileOrchestrator implements Orchestrator {
 		return null;
 	}
 
+	@Override
+	public void freeSlot(int slotId) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

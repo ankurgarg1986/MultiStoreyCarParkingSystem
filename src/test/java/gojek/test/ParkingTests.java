@@ -1,11 +1,11 @@
 package gojek.test;
 
 import static gojek.test.constants.TestResponseStrings.color;
-import static gojek.test.constants.TestResponseStrings.invalidCarExceptionMessage;
 import static gojek.test.constants.TestResponseStrings.validRegNo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import gojek.entities.Car;
 import gojek.entities.Parking;
 import gojek.entities.Slot;
@@ -31,7 +31,7 @@ public class ParkingTests extends AbstractTest {
 	 */
 	@Test(expected = GoJekException.class)
 	public void testEmptyParkingLotCreation() throws GoJekException {
-		Parking p = pm.createParkingLot(0);
+		Parking p = gjParking.createParkingLot(0);
 		assertNull(p);
 	}
 
@@ -43,7 +43,7 @@ public class ParkingTests extends AbstractTest {
 	 */
 	@Test(expected = GoJekException.class)
 	public void testNegativeParkingLotCreation() throws GoJekException {
-		Parking p = pm.createParkingLot(-5);
+		Parking p = gjParking.createParkingLot(-5);
 		assertNull(p);
 	}
 
@@ -55,7 +55,7 @@ public class ParkingTests extends AbstractTest {
 	 */
 	@Test
 	public void testNonEmptyParkingLotCreation() throws GoJekException {
-		Parking p = pm.createParkingLot(10);
+		Parking p = gjParking.createParkingLot(10);
 		assertNotNull(p);
 	}
 
@@ -66,7 +66,7 @@ public class ParkingTests extends AbstractTest {
 	 */
 	@Test
 	public void testParkingCar() throws GoJekException {
-		Slot s = pm.ParkVehicle(park, validCar);
+		Slot s = gjParking.ParkVehicle(park, validCar);
 		assertNotNull(s);
 
 	}
@@ -80,7 +80,7 @@ public class ParkingTests extends AbstractTest {
 		Vehicle vehicleEmptyColor = new Car(validRegNo, null);
 		String message = null;
 		try {
-			Slot s = pm.ParkVehicle(park, vehicleEmptyColor);
+			Slot s = gjParking.ParkVehicle(park, vehicleEmptyColor);
 		} catch (GoJekException e) {
 			message = e.getMessage();
 		}
@@ -99,7 +99,7 @@ public class ParkingTests extends AbstractTest {
 		Vehicle vehicleEmptyRegNo = new Car(null, color);
 		String message = null;
 		try {
-			Slot s = pm.ParkVehicle(park, vehicleEmptyRegNo);
+			Slot s = gjParking.ParkVehicle(park, vehicleEmptyRegNo);
 		} catch (GoJekException e) {
 			message = e.getMessage();
 		}
@@ -115,7 +115,7 @@ public class ParkingTests extends AbstractTest {
 	@Test(expected = GoJekException.class)
 	public void testParkingCarEmptyColor() throws GoJekException {
 		Vehicle vehicleEmptyColor = new Car(validRegNo, "");
-	    pm.ParkVehicle(park, vehicleEmptyColor);
+	    gjParking.ParkVehicle(park, vehicleEmptyColor);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class ParkingTests extends AbstractTest {
 	@Test(expected = GoJekException.class)
 	public void testParkingCarEmptyRegNo() throws GoJekException {
 		Vehicle vehicleEmptyRegNo = new Car("", color);
-		pm.ParkVehicle(park, vehicleEmptyRegNo);
+		gjParking.ParkVehicle(park, vehicleEmptyRegNo);
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class ParkingTests extends AbstractTest {
 	 */
 	@Test(expected = GoJekException.class)
 	public void testParkingCarNullParking() throws GoJekException {
-		pm.ParkVehicle(null, validCar);
+		gjParking.ParkVehicle(null, validCar);
 	}
 	
 	/**
@@ -145,11 +145,11 @@ public class ParkingTests extends AbstractTest {
 	 */
 	@Test
 	public void testParkingPositiveSlotAvailable() throws GoJekException {
-		Slot s = pm.ParkVehicle(park, validCar);
+		Slot s = gjParking.ParkVehicle(park, validCar);
 		assertNotNull(s);
 		assertEquals(1, s.getId());
 		Vehicle validCar2  = new Car("DL-­12-­AA-­9999","White");
-		s = pm.ParkVehicle(park, validCar2);
+		s = gjParking.ParkVehicle(park, validCar2);
 		assertNotNull(s);
 		assertEquals(2,s.getId());
 		
@@ -161,15 +161,51 @@ public class ParkingTests extends AbstractTest {
 	 */
 	@Test
 	public void testParkingPositiveParkingFull() throws GoJekException {
-		Parking p  =  pm.createParkingLot(1);
-		Slot s = pm.ParkVehicle(p, validCar);
+		Parking p  =  gjParking.createParkingLot(1);
+		Slot s = gjParking.ParkVehicle(p, validCar);
 		assertNotNull(s);
 		assertEquals(1, s.getId());
 		Vehicle validCar2  = new Car("DL-­12-­AA-­9999","White");
-		s = pm.ParkVehicle(p, validCar2);
+		s = gjParking.ParkVehicle(p, validCar2);
 		assertNull(s);
 		
 	}
+	
+	/**
+	 * Negative Test Case to test freeing of slot with negative test case
+	 * @throws GoJekException
+	 */
+	@Test(expected=GoJekException.class)
+	public void testFreeSlotInvalidSlotNumber() throws GoJekException {
+		gjParking.freeParkingSlot(park, -1);
+		
+	}
+	
+	/**
+	 * Positive Test Case to test freeing of slot with negative test case
+	 * @throws GoJekException
+	 */
+	@Test
+	public void testFreeSlotValidSlotNumberAndParkingCapacity() throws GoJekException {
+		Parking  p = mp.mockMultiStoreyParkingWithFilledSlots();
+		boolean res = gjParking.freeParkingSlot(p, 1);
+		assertTrue(res);
+	}
+	
+	/**
+	 * Negative Test Case to free Slot with Parking lot not available/created
+	 * @throws GoJekException
+	 */
+	@Test(expected=GoJekException.class)
+	public void testFreeSlotParkingNotAvailable() throws GoJekException {
+		gjParking.freeParkingSlot(null, 1);
+		
+	}
+	
+	
+	
+
+	
 	
 	
 	

@@ -7,9 +7,10 @@ import gojek.entities.Parking;
 import gojek.entities.Vehicle;
 import gojek.parking.Orchestrator.CliOrchestrator;
 import gojek.parking.Orchestrator.Orchestrator;
-import gojek.parking.contract.ParkingManager;
-import gojek.parking.contract.impl.ParkingManagerImpl;
+import gojek.parking.contract.GoJekParking;
+import gojek.parking.contract.impl.GoJekParkingImpl;
 import gojek.parking.exceptions.GoJekException;
+import gojek.test.mocks.MockParkingFeatures;
 
 import org.junit.BeforeClass;
 
@@ -20,18 +21,20 @@ import org.junit.BeforeClass;
  */
 public abstract class AbstractTest {
 
-	protected  static ParkingManager pm;
+	protected  static GoJekParking gjParking;
 	protected  static Parking park; // to test apis which expect a parking lot created
 	protected  static Orchestrator or;
 	protected  static Vehicle validCar;
+	protected  static MockParkingFeatures mp;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		 pm = new ParkingManagerImpl();
+		 gjParking = new GoJekParkingImpl();
 		 or = new CliOrchestrator();
+		 mp = new MockParkingFeatures();
 		 validCar = new Car(validRegNo,color);
 		 try {
-			park = pm.createParkingLot(10);//to be used by other tests
+			park = gjParking.createParkingLot(10);//to be used by other tests
 		} catch (GoJekException e) {
 			//doing sysout . In actual better to use logging.
 			System.out.println("Parking lot could not be initialized . Please check");

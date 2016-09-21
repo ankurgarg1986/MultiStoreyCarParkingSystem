@@ -12,5 +12,7 @@ public interface Orchestrator {
 	public String createParkingLot(int n) ;
 
 	public String ParkVehicle(String regNumber, String color,VehicleType vt);
+	
+	public void  freeSlot(int slotId);
 
 }

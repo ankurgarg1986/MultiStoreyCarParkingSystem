@@ -1,12 +1,8 @@
 package gojek.parking.run;
 
-import gojek.entities.Parking;
-import gojek.entities.ParkingStatus;
 import gojek.enums.VehicleType;
 import gojek.parking.Orchestrator.CliOrchestrator;
 import gojek.parking.Orchestrator.Orchestrator;
-import gojek.parking.contract.ParkingManager;
-import gojek.parking.contract.impl.ParkingManagerImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -41,7 +37,8 @@ public class Bootstrap {
 				or.ParkVehicle(regNumber, color, VehicleType.Car);													
 				break;
 			case "leave":
-				int i = Integer.parseInt(commandArray[1]);// gets slot Number
+				int slotNumber = Integer.parseInt(commandArray[1]);// gets slot Number
+				or.freeSlot(slotNumber);
 				break;
 			case "status":
 				// get Status
@@ -66,13 +63,5 @@ public class Bootstrap {
 
 	}
 
-	/**
-	 * Method to print parking status .
-	 * 
-	 * @param ps
-	 */
-	private static void printParkingStatus(ParkingStatus ps) {
-
-	}
 
 }
