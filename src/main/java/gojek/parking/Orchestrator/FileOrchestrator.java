@@ -1,5 +1,6 @@
 package gojek.parking.Orchestrator;
 
+import gojek.entities.Parking;
 import gojek.enums.VehicleType;
 
 /**
@@ -23,7 +24,19 @@ public class FileOrchestrator implements Orchestrator {
 	}
 
 	@Override
-	public void freeSlot(int slotId) {
+	public String freeSlot(int slotId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Parking getParking() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setParking(Parking p) {
 		// TODO Auto-generated method stub
 		
 	}

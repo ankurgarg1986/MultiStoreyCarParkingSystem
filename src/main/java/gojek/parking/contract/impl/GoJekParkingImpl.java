@@ -53,7 +53,7 @@ public class GoJekParkingImpl implements GoJekParking {
 		ParkingManager pm  = ParkingUtils.getParkingType(parking);
 		boolean result  = pm.freeParkingSlot(slotNumber,parking);
 		if(!result){
-			throw new GoJekException("Slot Number could not be freed . Slot Number given is invalid ");
+			throw new GoJekException("Slot Number could not be freed . Slot Number given is invalid.");
 		}
 		return result;
 	}

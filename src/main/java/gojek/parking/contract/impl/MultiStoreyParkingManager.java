@@ -52,7 +52,7 @@ public class MultiStoreyParkingManager implements ParkingManager {
 	public boolean freeParkingSlot(int slotNumber, Parking parking) {
 		MultiStoreyParking mp = (MultiStoreyParking) parking;
 		int capacity = mp.getCapacity();
-		if(slotNumber >= capacity){
+		if(slotNumber > capacity){
 			return false;
 		}
 		Slot[] slots = parking.getSlots();
@@ -64,7 +64,7 @@ public class MultiStoreyParkingManager implements ParkingManager {
 		slot.setEmpty(true);
 		slot.setVehicle(null);
 		slots[slotNumber - 1] = slot;
-		parking.setSlots(slots);
+		parking.setSlots(slots);//not needed but as object reference will be set automatically but added for double check.
 		return true;
 
 	}

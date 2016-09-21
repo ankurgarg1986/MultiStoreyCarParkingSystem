@@ -21,24 +21,26 @@ import org.junit.BeforeClass;
  */
 public abstract class AbstractTest {
 
-	protected  static GoJekParking gjParking;
-	protected  static Parking park; // to test apis which expect a parking lot created
-	protected  static Orchestrator or;
-	protected  static Vehicle validCar;
-	protected  static MockParkingFeatures mp;
-	
+	protected static GoJekParking gjParking;
+	protected static Parking park; // to test apis which expect a parking lot created						
+	protected static Orchestrator or;
+	protected static Vehicle validCar;
+	protected static MockParkingFeatures mp;
+
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		 gjParking = new GoJekParkingImpl();
-		 or = new CliOrchestrator();
-		 mp = new MockParkingFeatures();
-		 validCar = new Car(validRegNo,color);
-		 try {
-			park = gjParking.createParkingLot(10);//to be used by other tests
+		gjParking = new GoJekParkingImpl();
+		or = new CliOrchestrator();
+		mp = new MockParkingFeatures();
+		validCar = new Car(validRegNo, color);
+		try {
+			park = gjParking.createParkingLot(5);// to be used by other tests
 		} catch (GoJekException e) {
-			//doing sysout . In actual better to use logging.
-			System.out.println("Parking lot could not be initialized . Please check");
+			// doing sysout . In actual better to use logging.
+			System.out
+					.println("Parking lot could not be initialized . Please check");
 		}
+		or.setParking(park);
 	}
 
 }

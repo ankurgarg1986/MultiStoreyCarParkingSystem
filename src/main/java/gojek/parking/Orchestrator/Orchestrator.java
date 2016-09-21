@@ -1,5 +1,6 @@
 package gojek.parking.Orchestrator;
 
+import gojek.entities.Parking;
 import gojek.enums.VehicleType;
 
 /**
@@ -13,6 +14,11 @@ public interface Orchestrator {
 
 	public String ParkVehicle(String regNumber, String color,VehicleType vt);
 	
-	public void  freeSlot(int slotId);
+	public String  freeSlot(int slotId);
+	
+	public Parking getParking();
+	
+	public void setParking(Parking p);
+	
 
 }

@@ -14,8 +14,8 @@ public class ResponseMessages {
 	public final static String parkingLotFull = "Sorry, parking lot is full";
 	public final static String parkingAllocated = "Allocated slot number: ";
 	public final static String parkingNotPresent = "Parking Lot does not exist";
-	public final static String slotNumber = "Slot Number "; 
-	public final static String isFree = "is Free";
+	public final static String slotNumber = "Slot number "; 
+	public final static String isFree = " is free";
 	
 	
 

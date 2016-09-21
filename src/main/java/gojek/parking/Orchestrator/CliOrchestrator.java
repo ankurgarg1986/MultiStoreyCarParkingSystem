@@ -85,7 +85,7 @@ public class CliOrchestrator implements Orchestrator {
 	 * Method to free the parking slot
 	 */
 	@Override
-	public void freeSlot(int slotId) {
+	public String freeSlot(int slotId) {
 		Parking p = getParking();
 		String resp = null;
 		if (p == null) {
@@ -94,7 +94,7 @@ public class CliOrchestrator implements Orchestrator {
 			try {
 				boolean res = gjParking.freeParkingSlot(p, slotId);
 				if(res){
-					resp = slotNumber + slotId +  isFree;
+					resp = slotNumber + slotId + isFree;
 				}
 
 			} catch (GoJekException e) {
@@ -102,6 +102,7 @@ public class CliOrchestrator implements Orchestrator {
 			}
 		}
 		ResponseBuilder.buildResponse(resp);
+		return resp;
 	}
 
 	
