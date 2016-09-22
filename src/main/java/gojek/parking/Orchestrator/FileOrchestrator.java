@@ -41,4 +41,10 @@ public class FileOrchestrator implements Orchestrator {
 		
 	}
 
+	@Override
+	public void getParkingStatus() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

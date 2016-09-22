@@ -19,6 +19,8 @@ public interface Orchestrator {
 	public Parking getParking();
 	
 	public void setParking(Parking p);
+
+	public void getParkingStatus();
 	
 
 }

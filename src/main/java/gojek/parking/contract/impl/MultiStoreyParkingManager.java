@@ -3,17 +3,26 @@ package gojek.parking.contract.impl;
 import static gojek.parking.utils.PakingConstants.entryPoint;
 import gojek.entities.MultiStoreyParking;
 import gojek.entities.Parking;
+import gojek.entities.ParkingStatus;
 import gojek.entities.Slot;
 import gojek.entities.Vehicle;
+import gojek.mapper.ObjectMapper;
+import gojek.mapper.SlotStatusMapper;
 import gojek.parking.contract.ParkingManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
- * Implementation for managing MultiStoreyParking Instances
+ * Implementation for managing MultiStoreyParking Instances.
+ * Design is open to introduce a persistent/third Party layer . Ideally the persistence layer can be added with seperate
+ * set of contract and that contract can be called from here. Persistence can be anything related to storage like 
+ * database,cache etc.
  * @author agarg
  *
  */
-public class MultiStoreyParkingManager implements ParkingManager {
+public class MultiStoreyParkingManager implements ParkingManager{
 
 	@Override
 	public Slot findNearestEmptySlot(Parking parking) {
@@ -67,6 +76,21 @@ public class MultiStoreyParkingManager implements ParkingManager {
 		parking.setSlots(slots);//not needed but as object reference will be set automatically but added for double check.
 		return true;
 
+	}
+
+	
+	@Override
+	public List<ParkingStatus> populateParkingStatus(Parking parking) {
+		MultiStoreyParking mp = (MultiStoreyParking) parking;
+		List<ParkingStatus> psList = new ArrayList<ParkingStatus>();
+		Slot[] slots = mp.getSlots();
+		for(int i=0;i<slots.length;i++){
+			Slot slot = slots[i];
+			ObjectMapper<Slot,ParkingStatus> om = new SlotStatusMapper();
+			ParkingStatus ps = (ParkingStatus)om.convertObjects(slot, new ParkingStatus());
+			psList.add(ps);
+		}
+		return psList;
 	}
 
 }

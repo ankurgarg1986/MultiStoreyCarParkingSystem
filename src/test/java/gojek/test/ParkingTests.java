@@ -2,16 +2,23 @@ package gojek.test;
 
 import static gojek.test.constants.TestResponseStrings.color;
 import static gojek.test.constants.TestResponseStrings.validRegNo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertTrue;
 import gojek.entities.Car;
 import gojek.entities.Parking;
+import gojek.entities.ParkingStatus;
 import gojek.entities.Slot;
 import gojek.entities.Vehicle;
 import gojek.parking.exceptions.GoJekException;
 
+import java.util.List;
+
+import org.hamcrest.collection.IsIterableContainingInOrder;
 import org.junit.Test;
 
 /**
@@ -201,6 +208,33 @@ public class ParkingTests extends AbstractTest {
 		gjParking.freeParkingSlot(null, 1);
 		
 	}
+	
+	
+	/**
+	 * Negative Test Case to print Parking Status with Parking lot not available/created
+	 * @throws GoJekException
+	 */
+	@Test(expected=GoJekException.class)
+	public void testPrintParkingStatusNegative() throws GoJekException {
+		gjParking.getStatusforParking(null);
+	}
+	
+	
+	/**
+	 * Positive Test Case to print Parking Status with Mock Parking lot 
+	 * @throws GoJekException
+	 */
+	@Test
+	public void testPrintParkingStatusPositive() throws GoJekException {
+		Parking  p = mp.mockMultiStoreyParkingWithFilledSlots();
+		List<ParkingStatus> psList = gjParking.getStatusforParking(p);
+		List<ParkingStatus> mockPsList = mp.getPsList();
+		assertNotNull(psList);
+		assertEquals(psList.size(),mockPsList.size());
+		assertTrue(psList.equals(mockPsList));
+	}
+	
+	
 	
 	
 	

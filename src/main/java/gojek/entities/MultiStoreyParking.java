@@ -24,7 +24,7 @@ public class MultiStoreyParking extends Parking {
 		super(ParkingLotType.SingleFloor);
 		this.slots = new Slot[n];
 		for(int i=0;i<n;i++){
-			this.slots[i] = new Slot(i);
+			this.slots[i] = new Slot(i+1);
 		}
 		this.capacity = n;
 	}

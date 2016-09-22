@@ -2,12 +2,7 @@ package gojek.entities;
 
 /**
  * Describes a parking Slot
- * This same slot can be extended to support different vehicle types .
- * Today the problem statement only asks to support Cars but later it may be
- * required to support Two Wheelers and Heavy Weight vehicles too. 
- * The design is open for this extension . One way to support such requirement
- * can be to introduce an enum Vehicle Type .Also it can support multidimensional parking
- * as well by introduction of another variable say floor or storey. 
+ * This same slot can be used/extended to support different vehicle types and parking Types.
  * @author agarg
  *
  */
@@ -23,7 +18,7 @@ public class Slot {
 	 * @param isEmpty
 	 */
 	public Slot(int id){
-		this.id = id+1;
+		this.id = id;
 		this.isEmpty = true;
 	}
 	
@@ -34,7 +29,7 @@ public class Slot {
 	public Slot(Vehicle v,int id){
 		this.vehicle = v;
 		this.isEmpty = false;
-		this.id = id+1;
+		this.id = id;
 	}
 	
 	

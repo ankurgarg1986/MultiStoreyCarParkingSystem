@@ -11,8 +11,10 @@ import gojek.parking.exceptions.GoJekException;
 import gojek.parking.utils.ParkingUtils;
 import gojek.parking.utils.ValidateInput;
 
+import java.util.List;
+
 /**
- * Implementation for the  assignment API's
+ * Main Implementation for the  assignment API's
  * @author agarg
  */
 public class GoJekParkingImpl implements GoJekParking {
@@ -35,7 +37,7 @@ public class GoJekParkingImpl implements GoJekParking {
 	public Slot ParkVehicle(Parking parking, Vehicle vehicle) throws GoJekException {
 		vInput.validateParking(parking);
 		Slot slot = null;
-		if(vInput.isVehicleValid(vehicle)){
+		if(vInput.validateVehicle(vehicle)){
 			ParkingManager pm  = ParkingUtils.getParkingType(parking);
 		    slot = pm.findNearestEmptySlot(parking);
 			if(slot != null) pm.fillParkingSlot(slot,vehicle,parking);
@@ -60,9 +62,11 @@ public class GoJekParkingImpl implements GoJekParking {
 	
 	
 	@Override
-	public ParkingStatus getStatusforParking(Parking parking) {
-	
-		return null;
+	public List<ParkingStatus> getStatusforParking(Parking parking) throws GoJekException {
+		vInput.validateParking(parking);
+		ParkingManager pm  = ParkingUtils.getParkingType(parking);
+		List<ParkingStatus> psList = pm.populateParkingStatus(parking);
+		return psList;
 	}
 	
 	

@@ -41,7 +41,7 @@ public class Bootstrap {
 				or.freeSlot(slotNumber);
 				break;
 			case "status":
-				
+				or.getParkingStatus();
 				break;
 			case "registration_numbers_for_cars_with_colour":
 				break;

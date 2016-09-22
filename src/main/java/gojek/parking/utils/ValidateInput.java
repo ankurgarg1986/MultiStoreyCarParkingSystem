@@ -14,20 +14,17 @@ import gojek.parking.exceptions.GoJekException;
  */
 public class ValidateInput {
 
-	public  boolean isVehicleValid(Vehicle v){
+	public  boolean validateVehicle(Vehicle v){
 		if(v.getColor() == null || v.getColor().isEmpty() || v.getRegNumber() == null || v.getRegNumber().isEmpty()){
 			return false;
 		}
-		return true;
-		
+		return true;	
 	}
 
 	public  void validateParking(Parking parking) throws GoJekException {
 		if(parking==null){
 			throw new GoJekException("Parking lot is not created . Please create parking lot");
 		}
-		
-		
 	}
 	
 	public  void validateSlotNumber(int slotNumber) throws GoJekException {

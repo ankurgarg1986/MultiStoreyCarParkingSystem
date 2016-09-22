@@ -1,6 +1,9 @@
 package gojek.parking.contract;
 
+import java.util.List;
+
 import gojek.entities.Parking;
+import gojek.entities.ParkingStatus;
 import gojek.entities.Slot;
 import gojek.entities.Vehicle;
 
@@ -16,5 +19,7 @@ public interface ParkingManager {
 	public void fillParkingSlot(Slot slot, Vehicle vehicle, Parking parking);
 
 	public boolean freeParkingSlot(int slotNumber, Parking parking);
+	
+	public List<ParkingStatus> populateParkingStatus(Parking parking);
 
 }
