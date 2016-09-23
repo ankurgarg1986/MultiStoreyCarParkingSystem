@@ -47,4 +47,23 @@ public class FileOrchestrator implements Orchestrator {
 		
 	}
 
+	 @Override
+	  public void getRegistrationNumbers(String color) {
+      return ;
+	    // TODO Auto-generated method stub
+	    
+	  }
+
+  @Override
+  public void getSlotNumbersForColor(String color) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void getSlotNumbersForRegistrationNumbers(String regNumber) {
+    // TODO Auto-generated method stub
+    
+  }
+
 }

@@ -2,12 +2,9 @@ package gojek.test;
 
 import static gojek.test.constants.TestResponseStrings.color;
 import static gojek.test.constants.TestResponseStrings.validRegNo;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertTrue;
 import gojek.entities.Car;
 import gojek.entities.Parking;
@@ -18,7 +15,6 @@ import gojek.parking.exceptions.GoJekException;
 
 import java.util.List;
 
-import org.hamcrest.collection.IsIterableContainingInOrder;
 import org.junit.Test;
 
 /**
@@ -235,6 +231,25 @@ public class ParkingTests extends AbstractTest {
 	}
 	
 	
+	 /**
+   * Negative Test Case to get All registration numbers of particular color with Parking lot not available/created
+   * @throws GoJekException
+   */
+  @Test(expected=GoJekException.class)
+  public void testGetRegistrationNumbersNegative() throws GoJekException {
+    gjParking.getRegistrationNumbers(null,"White");
+  }
+  
+  /**
+  * Positive Test Case to get All registration numbers of particular color
+  * @throws GoJekException
+  */
+ @Test(expected=GoJekException.class)
+ public void testGetRegistrationNumbersPositive() throws GoJekException {
+   gjParking.getRegistrationNumbers(null,"White");
+ }
+ 
+  
 	
 	
 	

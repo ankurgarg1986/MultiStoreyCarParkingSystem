@@ -3,6 +3,8 @@ package gojek.entities;
 /**
  * Describes a parking Slot
  * This same slot can be used/extended to support different vehicle types and parking Types.
+ * If there are different types of Slots (assuming current implementation/design cannot cater to that need)
+ * one can add an abstract class or Interface for it and extend/implement accordingly. (Similar to Parking).
  * @author agarg
  *
  */

@@ -16,6 +16,7 @@ public class ResponseMessages {
 	public final static String parkingNotPresent = "Parking Lot does not exist";
 	public final static String slotNumber = "Slot number "; 
 	public final static String isFree = " is free";
+	public final static String notFound = "Not found";
 	
 	
 
