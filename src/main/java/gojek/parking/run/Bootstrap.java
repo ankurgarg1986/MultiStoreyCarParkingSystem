@@ -1,10 +1,9 @@
 package gojek.parking.run;
 
 import gojek.enums.VehicleType;
-import gojek.parking.Orchestrator.CliOrchestrator;
-import gojek.parking.Orchestrator.Orchestrator;
-
+import gojek.parking.orchestrator.Orchestrator;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -17,15 +16,21 @@ import java.io.InputStreamReader;
 public class Bootstrap {
 
   public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    Orchestrator or = new CliOrchestrator();
+    BufferedReader br = null;
+    Orchestrator or = new Orchestrator();
+    if (args.length > 0) {
+      String fileName = args[0];
+      br = new BufferedReader((new FileReader(fileName)));
+    } else {
+      br = new BufferedReader(new InputStreamReader(System.in));
+    }
     String command;
     String color;
     String regNumber;
-    while (true) {
-      command = br.readLine();
+    while ((command =br.readLine()) != null) {
       String[] commandArray = command.split(" ");
       String commandPrefix = commandArray[0];
+
       switch (commandPrefix) {
         case "create_parking_lot":
           int n = Integer.parseInt(commandArray[1]);
@@ -65,7 +70,9 @@ public class Bootstrap {
            **/
           System.out.println("Invalid command . There is no support for this command");
       }
+
     }
+    br.close();
 
   }
 

@@ -55,7 +55,7 @@ public interface GoJekParking {
   
   /**
    * Api for gettingSlotNumbers for given Registration Number. Please see that I have
-   * introduced different API's for getting SlotNumber for color and seperate for RegNumber.
+   * introduced different API's for getting SlotNumber for color and separate for RegNumber.
    * Rationale behind keeping them separate is that I assume customer will be consuming them  so keeping
    * them separate makes sense. Though it does introduce some duplicacy in code , considering from end
    * user perspective , I have gone with this choice of implementation.
