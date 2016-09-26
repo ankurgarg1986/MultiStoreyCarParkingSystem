@@ -18,6 +18,8 @@ public class TestResponseStrings {
 	public final static String slotFreeSuccessMessage  = "Slot number 2 is free";
 	public final static String lastSlotFreeSuccessMessage  = "Slot number 5 is free";
 	public final static String slotFreeFailureMessage  = "Slot Number could not be freed . Slot Number given is invalid.";
+	public final static String allocatedSlotOne = "Allocated slot number: 1";
+	public final static String parkingLotFull = "Sorry, parking lot is full";
 	public final static int threadPoolSize = 3;
 	
 	

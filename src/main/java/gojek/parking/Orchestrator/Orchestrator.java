@@ -46,6 +46,12 @@ public class Orchestrator {
     this.rb = new ParkingResponseBuilder();
   }
   
+  public Orchestrator(Parking p) {
+    this.gjParking = new GoJekParkingImpl();
+    this.rb = new ParkingResponseBuilder();
+    this.p = p;
+  }
+  
   
   public String createParkingLot(int n) {
     String resp = null;
