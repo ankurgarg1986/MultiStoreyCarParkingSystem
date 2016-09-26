@@ -52,7 +52,7 @@ public class IntegrationTests  extends AbstractTest{
 	}
 	
 	/**
-	 * Positve Integration test case for checking leave command
+	 * Positive Integration test case for checking leave command
 	 * returns correct message or not when slotNumber is equal to capacity
 	 * @throws GoJekException 
 	 */

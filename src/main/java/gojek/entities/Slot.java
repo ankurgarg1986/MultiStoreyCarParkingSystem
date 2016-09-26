@@ -35,7 +35,11 @@ public class Slot {
 	}
 	
 	
-	public int getId() {
+  public Slot() {
+
+  }
+
+  public int getId() {
 		return id;
 	}
 

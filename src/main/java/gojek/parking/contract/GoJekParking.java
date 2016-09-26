@@ -25,6 +25,13 @@ import java.util.List;
  */
 public interface GoJekParking {
 
+  /**
+   * Solution assumes that multiple instances of ParkingLot can be created . Else 
+   * we can look at wrapping Parking Object inside a singleton.
+   * @param n
+   * @return
+   * @throws GoJekException
+   */
   public Parking createParkingLot(int n) throws GoJekException;
 
   /**
@@ -64,6 +71,6 @@ public interface GoJekParking {
    * @return
    * @throws GoJekException
    */
-  public Integer getSlotNumbersForRegistrationNumbers(Parking p, String regNumber) throws GoJekException;
+  public Integer getSlotNumberForRegistrationNumber(Parking p, String regNumber) throws GoJekException;
 
 }

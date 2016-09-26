@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * 
  * Implementation for managing MultiStoreyParking Instances. Design is open to introduce a persistent/third Party layer
- * . Ideally the persistence layer can be added with seperate set of contract and that contract can be called from here.
+ * . Ideally the persistence layer can be added with separate set of contract and that contract can be called from here.
  * Persistence can be anything related to storage like database,cache etc.
  * 
  * @author agarg
@@ -37,7 +37,6 @@ public class MultiStoreyParkingManager implements ParkingManager {
     return null;// means parking is full
   }
 
-  // TODO make thread safe
   @Override
   public void fillParkingSlot(Slot slot, Vehicle vehicle, Parking parking) {
     MultiStoreyParking mp = (MultiStoreyParking) parking;
@@ -49,11 +48,11 @@ public class MultiStoreyParkingManager implements ParkingManager {
     Slot[] slots = mp.getSlots();
     slots[slotNumber - 1] = slot;
     mp.setSlots(slots);// not needed but as object reference will be set automatically but added for double check.
+
     return;
 
   }
 
-  // TODO Make thread safe
   /**
    * keeping boolean for simplicity . Can be easily modified to send custom Exception or Message
    */
@@ -66,6 +65,7 @@ public class MultiStoreyParkingManager implements ParkingManager {
     }
     Slot[] slots = parking.getSlots();
     Slot slot = slots[slotNumber - 1];
+    Vehicle v = slot.getVehicle();
     if (slot.isEmpty()) {
       // slot Number is already free so no need to free it.
       return true;
@@ -74,8 +74,26 @@ public class MultiStoreyParkingManager implements ParkingManager {
     slot.setVehicle(null);
     slots[slotNumber - 1] = slot;
     parking.setSlots(slots);// not needed but as object reference will be set automatically but added for double check.
+    removeFromRegMap(mp, v);// not needed as we are already covering this while using object mapper but added for double
+                            // check.
     return true;
 
+  }
+
+  /**
+   * Added to remove a particular entry from the Map.
+   * 
+   * @param mp
+   * @param v
+   */
+  private void removeFromRegMap(MultiStoreyParking mp, Vehicle v) {
+   
+    Map<String, ArrayList<String>> regMap = mp.getRegNumberMap();
+    String color = v.getColor();
+    ArrayList<String> list = regMap.get(color);
+    if(list != null) {
+      list.remove(v.getRegNumber());
+    }
   }
 
   @Override
@@ -99,7 +117,7 @@ public class MultiStoreyParkingManager implements ParkingManager {
     String color = vehicle.getColor();
     String regNumber = vehicle.getRegNumber();
     ArrayList<String> regNumbers = regMap.get(color);
-    if(regNumbers == null){
+    if (regNumbers == null) {
       regNumbers = new ArrayList<String>();
     }
     regNumbers.add(regNumber);
@@ -118,39 +136,37 @@ public class MultiStoreyParkingManager implements ParkingManager {
   @Override
   public List<Integer> getSlotNumbersForColor(Parking parking, String color) {
     MultiStoreyParking mp = (MultiStoreyParking) parking;
-    Slot[] slots =  mp.getSlots();
-    int i=0;
+    Slot[] slots = mp.getSlots();
+    int i = 0;
     List<Integer> slotList = new ArrayList<Integer>();
-    for(i=0;i<slots.length;i++){
-        Slot s  = slots[i];
-        Vehicle v  = s.getVehicle();
-        if(v != null){
-           if(color.equalsIgnoreCase(v.getColor())){
-               //color matches add to list
-             slotList.add(s.getId());
-           }
+    for (i = 0; i < slots.length; i++) {
+      Slot s = slots[i];
+      Vehicle v = s.getVehicle();
+      if (v != null) {
+        if (color.equalsIgnoreCase(v.getColor())) {
+          // color matches add to list
+          slotList.add(s.getId());
         }
+      }
     }
-   return slotList;
+    return slotList;
   }
-  
+
   @Override
   public Integer getSlotNumbersForRegNumber(Parking parking, String regNumber) {
     MultiStoreyParking mp = (MultiStoreyParking) parking;
-    Slot[] slots =  mp.getSlots();
-    int i=0;
-    for(i=0;i<slots.length;i++){
-        Slot s  = slots[i];
-        Vehicle v  = s.getVehicle();
-        if(v != null){
-           if(regNumber.equalsIgnoreCase(v.getRegNumber())){
-               return s.getId();
-           }
+    Slot[] slots = mp.getSlots();
+    int i = 0;
+    for (i = 0; i < slots.length; i++) {
+      Slot s = slots[i];
+      Vehicle v = s.getVehicle();
+      if (v != null) {
+        if (regNumber.equalsIgnoreCase(v.getRegNumber())) {
+          return s.getId();
         }
+      }
     }
-   return -1;
+    return -1;
   }
-
-
 
 }

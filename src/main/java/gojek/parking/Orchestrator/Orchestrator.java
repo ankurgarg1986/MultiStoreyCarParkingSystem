@@ -30,6 +30,8 @@ import java.util.List;
  * Since the implementation is similar for both File based and Command Based Input , so 
  * logic has been moved here. If there is any dependency that needs to be created to
  * call the main Library , this layer constructs that . There is no real business logic here.
+ * ThreadSafety - Assuming multiple instances of Parking Lot can be created I am not making it thread safe.
+ * Alternatively , one can wrap it inside a singleton if only one instance needs to be created.
  * @author agarg
  *
  */
@@ -147,7 +149,7 @@ public class Orchestrator {
   public void getSlotNumbersForRegistrationNumbers(String regNumber) {
     p = getParking();
     try {
-      Integer slotNumber = gjParking.getSlotNumbersForRegistrationNumbers(p, regNumber);
+      Integer slotNumber = gjParking.getSlotNumberForRegistrationNumber(p, regNumber);
       if (slotNumber  ==  -1) {
         rb.buildResponse(notFound);
         return;

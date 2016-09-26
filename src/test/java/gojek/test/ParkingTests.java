@@ -73,7 +73,8 @@ public class ParkingTests extends AbstractTest {
 		assertNotNull(s);
 
 	}
-
+	
+	
 	/**
 	 * Negative test case to test Parking a Car with Color Empty Checking if the
 	 * exception String is matching here or not
@@ -229,33 +230,6 @@ public class ParkingTests extends AbstractTest {
 		assertEquals(psList.size(),mockPsList.size());
 		assertTrue(psList.equals(mockPsList));
 	}
-	
-	
-	 /**
-   * Negative Test Case to get All registration numbers of particular color with Parking lot not available/created
-   * @throws GoJekException
-   */
-  @Test(expected=GoJekException.class)
-  public void testGetRegistrationNumbersNegative() throws GoJekException {
-    gjParking.getRegistrationNumbers(null,"White");
-  }
-  
-  /**
-  * Positive Test Case to get All registration numbers of particular color
-  * @throws GoJekException
-  */
- @Test(expected=GoJekException.class)
- public void testGetRegistrationNumbersPositive() throws GoJekException {
-   gjParking.getRegistrationNumbers(null,"White");
- }
- 
-  
-	
-	
-	
-
-	
-	
 	
 	
 	

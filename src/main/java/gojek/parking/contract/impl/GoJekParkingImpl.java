@@ -34,17 +34,27 @@ public class GoJekParkingImpl implements GoJekParking {
     return parking;
   }
 
+  /**
+   * Thread Safe API to park any vehicle
+   */
   @Override
   public Slot ParkVehicle(Parking parking, Vehicle vehicle) throws GoJekException {
     vInput.validateParking(parking);
     Slot slot = null;
     if (vInput.validateVehicle(vehicle)) {
       ParkingManager pm = ParkingUtils.getParkingType(parking);
-      slot = pm.findNearestEmptySlot(parking);
-      if (slot != null){
-        pm.fillParkingSlot(slot, vehicle, parking);
-        pm.populateRegMap(vehicle, parking);
+      // Taking a lock on parking object so that same slot can't be assigned to any other vehicle getting parked
+      // Alternatively we can make findNearestEmptySlot and fillParkingSlot thread safe by
+      // using synchronized keyword but for that interface definition in ParkingManager needs to be
+      // modified which may not be case for all the implementations.
+      synchronized (parking) {
+        slot = pm.findNearestEmptySlot(parking);
+        if (slot != null) {
+          pm.fillParkingSlot(slot, vehicle, parking);
+          pm.populateRegMap(vehicle, parking);
+        }
       }
+
     } else {
       throw new GoJekException("Invalid Car Object.");
     }
@@ -55,8 +65,11 @@ public class GoJekParkingImpl implements GoJekParking {
   public boolean freeParkingSlot(Parking parking, int slotNumber) throws GoJekException {
     vInput.validateParking(parking);
     vInput.validateSlotNumber(slotNumber);
+    boolean result;
     ParkingManager pm = ParkingUtils.getParkingType(parking);
-    boolean result = pm.freeParkingSlot(slotNumber, parking);
+
+    result = pm.freeParkingSlot(slotNumber, parking);
+
     if ( !result) {
       throw new GoJekException("Slot Number could not be freed . Slot Number given is invalid.");
     }
@@ -85,17 +98,17 @@ public class GoJekParkingImpl implements GoJekParking {
     vInput.validateParking(parking);
     vInput.validateColorOrRegNumber(color);
     ParkingManager pm = ParkingUtils.getParkingType(parking);
-    return pm.getSlotNumbersForColor(parking,color);
-   
+    return pm.getSlotNumbersForColor(parking, color);
+
   }
 
   @Override
-  public Integer getSlotNumbersForRegistrationNumbers(Parking parking, String regNumber) throws GoJekException {
+  public Integer getSlotNumberForRegistrationNumber(Parking parking, String regNumber) throws GoJekException {
     vInput.validateParking(parking);
     vInput.validateColorOrRegNumber(regNumber);
     ParkingManager pm = ParkingUtils.getParkingType(parking);
-    return  pm.getSlotNumbersForRegNumber(parking, regNumber);
-    
+    return pm.getSlotNumbersForRegNumber(parking, regNumber);
+
   }
 
 }
